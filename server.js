@@ -17,8 +17,8 @@ app.use(
       "http://localhost:5174",
       "https://gencomwebsite.netlify.app",
       "https://gencomadminpanel.netlify.app",
-      "https://admin.gencom.co.in/",
-      "https://gencom.co.in/",
+      "https://admin.gencom.co.in",
+      "https://gencom.co.in",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
