@@ -4,6 +4,8 @@ const blogRoutes = require("./routes/blogRoutes");
 require("dotenv").config();
 const cors = require("cors");
 const galleryRoutes = require("./routes/galleryRoutes");
+const authRoutes = require("./routes/authRoutes");
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -14,16 +16,22 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5174",
       "https://gencomwebsite.netlify.app",
-      "https://gencomadminpanel.netlify.app"
+      "https://gencomadminpanel.netlify.app",
+      "https://admin.gencom.co.in/",
+      "https://gencom.co.in/",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
 
-// middleware
+// ⭐ BODY PARSER MUST COME BEFORE ROUTES
 app.use(express.json());
+
+// routes
+app.use("/api/auth", authRoutes);
 app.use("/api/gallery", galleryRoutes);
+app.use("/api/blogs", blogRoutes);
 
 // MongoDB connection
 mongoose
@@ -31,12 +39,10 @@ mongoose
   .then(() => console.log("MongoDB Connected ✅"))
   .catch((err) => console.log(err));
 
-// route
+// test route
 app.get("/", (req, res) => {
   res.send("Server is running successfully 🚀");
 });
-
-app.use("/api/blogs", blogRoutes);
 
 // start server
 app.listen(PORT, () => {
